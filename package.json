@@ -1,0 +1,23 @@
+{
+  "name": "Postit-Board",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "bundle": "browserify src/main.js -o dist/js/bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SeptIO/Postit-Board"
+  },
+  "author": "Kasper Laukamp",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeptIO/Postit-Board/issues"
+  },
+  "homepage": "https://github.com/SeptIO/Postit-Board",
+  "dependencies": {
+    "jquery": "^2.2.4",
+    "requirejs": "^2.2.0"
+  }
+}
