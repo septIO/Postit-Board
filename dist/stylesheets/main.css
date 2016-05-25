@@ -16,4 +16,17 @@ html,body{
   background-color: white;
   position: absolute;
   overflow-y: auto;
+  box-sizing: border-box;;
+}
+
+.postit-container.postit-body{
+  padding: 5px;
+}
+
+.postit-container:hover{
+  border: 1px solid black;
+}
+
+.postit-container::after{
+
 }

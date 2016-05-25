@@ -1,5 +1,10 @@
+const HSB = "hsb",
+      RGB = "rgb";
+
 var postits = [];
-var backgroundColor = new Color(255,255,255);
+var colorMethod = HSB;
+
+
 
 Run();
 
@@ -14,30 +19,37 @@ function Draw(){
 
 }
 
-/**
- * This method is continually running,
- * put things inhere you want to always keep track of.
- */
 function Update(){
 
 }
 
 function Postit(){
   this.text = "Enter your text here";
-  this.pos = new Vector(50,70);
+  this.pos = new Vector(10,10);
   this.zindex = 0;
-  this.backgroundColor = new Color(Random(256), Random(256), Random(256));
+  this.backgroundColor = new Color(Random(100), 100, 75);
 
   this.moveTo = function(newPosition){
     this.pos = newPosition; // Do some animation shit here;
   }
 
   this.draw = function(){
-    var div = document.createElement("div");
-        div.className = "postit-container";
-        div.style.cssText = "z-index:" + this.zindex + ";top:" + this.pos.y + "px;left:" + this.pos.x + "px;background-color:" + this.backgroundColor.toCSS() + ";";
-    document.body.appendChild(div);
+    document.body.appendChild(generateHTML(this));
   }
+}
+
+function generateHTML(postitObject){
+  var container = document.createElement("div");
+      container.className = "postit-container";
+      container.id = "p"+postits.length;
+      container.style.cssText = "z-index:" + postitObject.zindex + ";top:" + postitObject.pos.y + "%;left:" + postitObject.pos.x + "%;background-color:" + postitObject.backgroundColor.toCSS() + ";";
+
+  var body = document.createElement("div");
+      body.className = "postit-body";
+      body.innerText = postitObject.text;
+      container.appendChild(body);
+
+    return container;
 }
 
 /**
@@ -57,14 +69,23 @@ function Vector(x,y){
  * @param {integer} b     Blue channel value (0-255)
  * @param {integer} a=100 Alpha channel value (0-100)
  */
-function Color(r,g,b,a=100){
+function Color(r,g,b,alpha=100){
   this.r = r;
   this.g = g;
   this.b = b;
-  this.a = a;
+  this.alpha = alpha;
 
   this.toCSS = function(){
-    return "rgba("+r+","+g+","+b+","+a+")";
+    switch (colorMethod) {
+      case HSB:
+
+        return "hsla("+r+", "+g+"%,"+b+"%, "+alpha+")";
+        break;
+      case RGB:
+        return "rgba("+r+","+g+","+b+","+alpha+")";
+        break;
+    }
+
   }
 }
 
