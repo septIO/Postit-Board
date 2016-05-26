@@ -3,7 +3,7 @@ html, body {
     width: 100%;
     padding: 0;
     margin: 0;
-    background-color: #ADD;
+    background-color: #bfd5e8;
 }
 
 .postit-container, textarea {
@@ -19,13 +19,15 @@ html, body {
     background-color: white;
     position: absolute;
     overflow-y: auto;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
     box-sizing: border-box;
     border: 1px solid transparent; /* This is a hack to prevent the element from jumping when hovering*/
 }
     
     .postit-container.active{
         border: 1px solid black;
-        box-shadow: rgba(0,0,0,.75) 0 0 20px;
+        box-shadow: rgba(0,0,0,.75) 0 0 15px;
     }
 
     .postit-container .postit-body {
