@@ -1,10 +1,5 @@
 ﻿html, body {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
     background-color: #bfd5e8;
-    overflow: hidden;
 }
 
 .postit-container, textarea {
@@ -23,9 +18,9 @@
 }
 
     .postit-container.active {
-        border: 1px solid black;
+        border-color:black;
         box-shadow: 0 4px 6px rgba(0,0,0,.75);
-        z-index: 1;
+        z-index: 2;
     }
 
     .postit-container .postit-body {
@@ -87,3 +82,12 @@ textarea {
     .toolbox, .toolbox button{
         z-index: 100;
     }
+
+.toolbox{
+    float:left;
+}
+
+.postit-toolbox{
+    float:left;
+    margin-left: 20px;
+}

@@ -4,17 +4,24 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="dist/stylesheets/main.css" />
     <link href='https://fonts.googleapis.com/css?family=Indie+Flower' rel='stylesheet' type='text/css'>
+    <link href="src/stylesheets/spectrum.css" rel="stylesheet"  type="text/css" />
 </head>
 <body>
     <div class="toolbox">
         <button class="add-new-postit">Add new Post it</button>
         <button class="sort-postits">Niftify Postits</button>
+        <button class="postits-delete-all">DELETE ALL</button>
+    </div>
+
+    <div class="postit-toolbox">
+        <input type="color" id="color-picker" />
     </div>
 </body>
 </html>
 
 <script src="dist/js/jquery-1.12.4.js"></script>
 <script src="dist/js/underscore.js"></script>
+<script src="src/js/spectrum.js"></script>
 <script src="src/js/settings.js"></script>
 <script src="src/js/utilities.js"></script>
 <script src="src/js/postit.js"></script>

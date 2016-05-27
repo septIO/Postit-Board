@@ -15,14 +15,7 @@ $(document).ready(function () {
      * then add the .active class to the selected element
      */
     $("body").on("click", ".postit-container", function () {
-        $('.postit-container.active').removeClass('active');
-        $(this).addClass('active');
-    });
-
-    // TODO: fix this
-    $(".postit-container textarea").focus(function () {
-        $('.postit-container.active').removeClass('active');
-        $(this).parent('.postit-container').addClass('active');
+        setActivePostit($(this));
     });
 
     // Save postits everytime a textarea is changed
@@ -35,8 +28,38 @@ $(document).ready(function () {
         DeletePostit($(this));
     });
 
+    $("body").on("click", ".postits-delete-all", function () {
+        if (!confirm("Are you sure you want to delete ALL postits?")) return;
+        $('.postit-container').each(function () {
+            DeletePostit($(this));
+        });
+    });
+
+    $("textarea").on("focus", function () {
+        setActivePostit($(this));
+    })
+
     $(".add-new-postit").click(function () {
         NewPostit();
+    });
+
+    $('#color-picker').on("move.spectrum", function (e, color) {
+        var obj = _.findWhere(postits, { isActive: true });
+        bg = 'rgba(' + parseInt(color._r) + ',' + parseInt(color._g) + ',' + parseInt(color._b) + ',' + parseInt(color._a * 100) + ')';
+        obj.background.red = color._r;
+        obj.background.green = color._g;
+        obj.background.blue = color._b;
+
+        obj.background.alpha = color._a * 100;
+        obj.colorMode = color._format;
+        var bg;
+
+        console.log(color, obj);
+
+        $('#' + obj.id).css({
+            'background-color': bg
+        });
+        SavePostits();
     });
 
     $(".sort-postits").click(function () {
@@ -55,16 +78,18 @@ $(document).ready(function () {
                 currentX = startX;
                 currentY += elHeight;
             }
-                
+
             $(this).css({
                 'left': currentX,
                 'top': currentY
             });
 
             currentX += elWidth;
-            
 
         });
+
+        // Clear the active classes when sorting
+        $('.postit-container.active').removeClass('active');
 
         SavePostits();
     })
@@ -76,7 +101,7 @@ $(document).ready(function () {
      * their mouse, and move the element accordingly
      */
     $("body").on("mousedown", ".postit-handle", function (e) {
-
+        isDragging = false;
         // Stop text selection while dragging
         e = e || window.event;
         pauseEvent(e);
@@ -94,11 +119,7 @@ $(document).ready(function () {
         // we actually need the parent element.
         $that = $(this).parent('.postit-container');
 
-        // Remove all active classes from postit containers
-        $('.postit-container.active').removeClass('active');
-
-        // Apply the active class on the current element
-        $that.addClass('active');
+        setActivePostit($(this));
 
 
         $(document).on("mousemove", function (e) {
@@ -136,11 +157,11 @@ $(document).ready(function () {
                 if (actualPosition.x < 0)
                     actualPosition.x = 0;
                 if (actualPosition.x > $(document).width() - elWidth)
-                    actualPosition.x = $(document).width() - elWidth - borders.right*2;
+                    actualPosition.x = $(document).width() - elWidth - borders.right * 2;
                 if (actualPosition.y < 0)
                     actualPosition.y = 0;
                 if (actualPosition.y > $(document).height() - elHeight)
-                    actualPosition.y = $(document).height() - elHeight - borders.bottom*2;
+                    actualPosition.y = $(document).height() - elHeight - borders.bottom * 2;
             }
 
             // Update left and top positions to the new positions
@@ -151,7 +172,6 @@ $(document).ready(function () {
         });
     });
     $(document).on("mouseup", function () {
-        if (!isDragging) return false;
         isDragging = false;
 
         // Where ever the user let go of their mouse click
@@ -174,4 +194,18 @@ function pauseEvent(e) {
     e.cancelBubble = true;
     e.returnValue = false;
     return false;
+}
+
+function setActivePostit($postit) {
+    $('.postit-container.active').removeClass('active');
+
+    var $container;
+    if ($postit.hasClass('.postit-container'))
+        $container = $postit;
+
+    else if ($postit.hasParent('.postit-container'))
+        $container = $postit.closest('.postit-container');
+
+    $container.addClass('active');
+
 }

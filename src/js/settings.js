@@ -4,12 +4,14 @@
  * don't touch constants
  */
 
-const HSB = 1;
-const RGB = 2;
+const HSB = "hsv";
+const RGB = "rgb";
+const HEX = "hex";
 
 /**
  * Use HSB for Hue Saturation Brigthness color codes
  * Use RGB for Red Green Blue color codes
+ * use HEX for hex color codes
  * 
  * @default: HSB
  */

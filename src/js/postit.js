@@ -9,10 +9,11 @@
 function Postit() {
     this.text = '';
     this.pos = new Vector(100, 100);
-    this.background = Color(Random(30, 75), 75, 85);
+    this.background = Color(Random(200, 215), 255, Random(80,125));
     this.isActive = false;
     this.id = guid();
     this.created = new Date().getTime();
+    this.colorMode = "hsv"
 }
 
 // TODO: prettify this
@@ -22,9 +23,9 @@ function Draw(postit) {
     $el = $('<div class="postit-container"></div>');
 
     if (postit.isActive)
-        console.log(postit);
+        $el.addClass('active');
     $el.css({
-        "background-color": toCSS(postit.background, HSB),
+        "background-color": toCSS(postit.background, RGB),
         "left": postit.pos.x,
         "top": postit.pos.y
     });
@@ -47,6 +48,8 @@ function NewPostit() {
     var p = new Postit();
     postits.push(p);
     Draw(p);
+
+    Save('postits', postits)
 }
 
 function DeletePostit($el) {
@@ -57,6 +60,8 @@ function DeletePostit($el) {
 }
 
 function SavePostits() {
+
+    var obj;
     // Itereate through all postit-containers
     $('.postit-container').each(function () {
         obj = _.findWhere(postits, { id: $(this).attr('id') });

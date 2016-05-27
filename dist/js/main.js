@@ -16,11 +16,25 @@ function Run() {
             postits.push(savedPostits[i]);
         }
     }
+
+    
     
     // Set the first postit to be the current one
     currentActive = postits[0];
     currentActive.isActive = true;
-    _.map(postits, function(obj, key){ return Draw(obj)});
+    _.map(postits, function (obj, key) { return Draw(obj) });
+
+    $('#color-picker').spectrum({
+        color: toCSS(_.findWhere(postits, { isActive: true }).background, HSB),
+        preferredFormat: "rgb",
+        localStorageKey: "color",
+        showInput: true,
+        chooseText: "Done",
+        showPalette: true,
+        showSelectionPalette: true,
+        maxSelectionSize: 10
+    });
+
 }
 
 
