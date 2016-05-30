@@ -26,3 +26,4 @@ var colorMode = HSB;
  * @default: true
  */
 var confinePostitsToScreen = true;
+var newestFirstWhenSorting = true;

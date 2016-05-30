@@ -68,7 +68,7 @@ $(document).ready(function () {
         var currentX = startX;
         var currentY = startY;
 
-        postits = _.sortBy(postits, function (obj) { return -obj.created });
+        postits = _.sortBy(postits, function (obj) { return newestFirstWhenSorting ? -obj.created : obj.created });
 
         $('.postit-container').each(function () {
             var elWidth = parseInt($(this).css('width')) + 5;
